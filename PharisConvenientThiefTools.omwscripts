@@ -1,0 +1,4 @@
+PLAYER: Scripts/Pharis/ConvenientThiefTools/settings.lua
+PLAYER: Scripts/Pharis/ConvenientThiefTools/player.lua
+GLOBAL: Scripts/Pharis/ConvenientThiefTools/settingsglobal.lua
+GLOBAL: Scripts/Pharis/ConvenientThiefTools/global.lua
