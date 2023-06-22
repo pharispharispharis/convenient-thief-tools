@@ -100,12 +100,13 @@ local function onKeyPress(key)
 			end
 		else -- Unequip and switch back to weapon
 			equip(types.Actor.EQUIPMENT_SLOT.CarriedRight, playerData.storedWeapon)
+			playerData.storedWeapon = nil
 		end
 	else -- No tool equipped
 		-- Don't save tools or actual saved weapon will get overwritten if you switch between them
-		if (not carriedRight) or (types.Weapon.objectIsInstance(carriedRight)) then playerData.storedWeapon = carriedRight end
 		local tools = getTools(type)
 		if (#tools > 0) then
+			if (not carriedRight) or (types.Weapon.objectIsInstance(carriedRight)) then playerData.storedWeapon = carriedRight end
 			equip(types.Actor.EQUIPMENT_SLOT.CarriedRight, tools[1])
 			if (gameplaySettings:get("autoWeaponStance")) then types.Actor.setStance(self, types.Actor.STANCE.Weapon) end
 		else
@@ -125,6 +126,8 @@ local function activationHandler(data)
 
 	local tools = getTools(type)
 	if (#tools > 0) then
+		local carriedRight = types.Actor.equipment(self)[types.Actor.EQUIPMENT_SLOT.CarriedRight]
+		if (not carriedRight) or (types.Weapon.objectIsInstance(carriedRight)) then playerData.storedWeapon = carriedRight end
 		equip(types.Actor.EQUIPMENT_SLOT.CarriedRight, tools[1])
 		if (gameplaySettings:get("autoWeaponStance")) then types.Actor.setStance(self, types.Actor.STANCE.Weapon) end
 	else
