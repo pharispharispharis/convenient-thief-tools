@@ -33,9 +33,7 @@ local function lockableActivationHandler(object, actor)
 	local carriedRight = types.Actor.equipment(actor)[types.Actor.EQUIPMENT_SLOT.CarriedRight]
 
 	if (gameplaySettings:get("autoEquipProbe")) and (not isProbe(carriedRight)) and (types.Lockable.getTrapSpell(object)) then
-		if (#types.Actor.inventory(actor):getAll(types.Probe) == 0) then
-			return true
-		end
+		if (#types.Actor.inventory(actor):getAll(types.Probe) == 0) then return true end
 		actor:sendEvent("PharisConvenientThiefToolsActivateLockable", {object = object, probe = true})
 		return false
 	end
@@ -43,9 +41,7 @@ local function lockableActivationHandler(object, actor)
 	-- Skip auto equipping lockpick if player has the key
 	-- still needs to prioritize checking for trap first
 	local keyRecord = types.Lockable.getKeyRecord(object)
-	if (keyRecord) and (types.Actor.inventory(actor):find(keyRecord.id)) then
-		return true
-	end
+	if (keyRecord) and (types.Actor.inventory(actor):find(keyRecord.id)) then return true end
 
 	if (gameplaySettings:get("autoEquipLockpick")) and (not isLockpick(carriedRight)) and (types.Lockable.isLocked(object)) then
 		actor:sendEvent("PharisConvenientThiefToolsActivateLockable", {object = object, probe = false})
