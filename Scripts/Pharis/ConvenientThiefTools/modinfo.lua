@@ -7,5 +7,5 @@ Author: Pharis
 
 return {
 	modName = "ConvenientThiefTools",
-	modVersion = "1.0.0"
+	modVersion = "1.0.1"
 }
