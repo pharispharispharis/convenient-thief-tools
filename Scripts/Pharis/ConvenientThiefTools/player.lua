@@ -20,7 +20,7 @@ local userInterfaceSettings = storage.playerSection("SettingsPlayer" .. modInfo.
 local controlsSettings = storage.playerSection("SettingsPlayer" .. modInfo.name .. "Controls")
 local gameplaySettings = storage.globalSection("SettingsPlayer" .. modInfo.name .. "Gameplay")
 
-local playerData = {}
+local storedWeapon
 
 local CarriedRight = types.Actor.EQUIPMENT_SLOT.CarriedRight
 
@@ -98,14 +98,14 @@ local function onKeyPress(key)
 				equip(CarriedRight, newSelection)
 			end
 		else -- Unequip and switch back to weapon
-			equip(CarriedRight, playerData.storedWeapon)
-			playerData.storedWeapon = nil
+			equip(CarriedRight, storedWeapon)
+			storedWeapon = nil
 		end
 	else -- No tool equipped
 		-- Don't save tools or actual saved weapon will get overwritten if you switch between them
 		local tools = getTools(type)
 		if (#tools > 0) then
-			if (not carriedRight) or (types.Weapon.objectIsInstance(carriedRight)) then playerData.storedWeapon = carriedRight end
+			if (not carriedRight) or (types.Weapon.objectIsInstance(carriedRight)) then storedWeapon = carriedRight end
 			equip(CarriedRight, tools[1])
 			if (gameplaySettings:get("autoWeaponStance")) then types.Actor.setStance(self, types.Actor.STANCE.Weapon) end
 		else
@@ -126,7 +126,7 @@ local function activationHandler(data)
 	local tools = getTools(type)
 	if (#tools > 0) then
 		local carriedRight = types.Actor.equipment(self)[CarriedRight]
-		if (not carriedRight) or (types.Weapon.objectIsInstance(carriedRight)) then playerData.storedWeapon = carriedRight end
+		if (not carriedRight) or (types.Weapon.objectIsInstance(carriedRight)) then storedWeapon = carriedRight end
 		equip(CarriedRight, tools[1])
 		if (gameplaySettings:get("autoWeaponStance")) then types.Actor.setStance(self, types.Actor.STANCE.Weapon) end
 	else
