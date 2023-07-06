@@ -22,6 +22,8 @@ local gameplaySettings = storage.globalSection("SettingsPlayer" .. modInfo.name 
 
 local playerData = {}
 
+local CarriedRight = types.Actor.EQUIPMENT_SLOT.CarriedRight
+
 local function message(msg)
 	if (not userInterfaceSettings:get("showMessages")) then return end
 	ui.showMessage(msg)
@@ -88,15 +90,15 @@ local function onKeyPress(key)
 		return
 	end
 
-	local carriedRight = types.Actor.equipment(self)[types.Actor.EQUIPMENT_SLOT.CarriedRight]
+	local carriedRight = types.Actor.equipment(self)[CarriedRight]
 	if (carriedRight) and (type == carriedRight.type) then -- Tool already equipped
 		if (key.withAlt) then -- Cycle to next tool
 			local changed, newSelection = getNextTool(getTools(type), carriedRight)
 			if (changed) then
-				equip(types.Actor.EQUIPMENT_SLOT.CarriedRight, newSelection)
+				equip(CarriedRight, newSelection)
 			end
 		else -- Unequip and switch back to weapon
-			equip(types.Actor.EQUIPMENT_SLOT.CarriedRight, playerData.storedWeapon)
+			equip(CarriedRight, playerData.storedWeapon)
 			playerData.storedWeapon = nil
 		end
 	else -- No tool equipped
@@ -104,7 +106,7 @@ local function onKeyPress(key)
 		local tools = getTools(type)
 		if (#tools > 0) then
 			if (not carriedRight) or (types.Weapon.objectIsInstance(carriedRight)) then playerData.storedWeapon = carriedRight end
-			equip(types.Actor.EQUIPMENT_SLOT.CarriedRight, tools[1])
+			equip(CarriedRight, tools[1])
 			if (gameplaySettings:get("autoWeaponStance")) then types.Actor.setStance(self, types.Actor.STANCE.Weapon) end
 		else
 			local typeStr = type == types.Probe and "probes" or "lockpicks"
@@ -123,9 +125,9 @@ local function activationHandler(data)
 
 	local tools = getTools(type)
 	if (#tools > 0) then
-		local carriedRight = types.Actor.equipment(self)[types.Actor.EQUIPMENT_SLOT.CarriedRight]
+		local carriedRight = types.Actor.equipment(self)[CarriedRight]
 		if (not carriedRight) or (types.Weapon.objectIsInstance(carriedRight)) then playerData.storedWeapon = carriedRight end
-		equip(types.Actor.EQUIPMENT_SLOT.CarriedRight, tools[1])
+		equip(CarriedRight, tools[1])
 		if (gameplaySettings:get("autoWeaponStance")) then types.Actor.setStance(self, types.Actor.STANCE.Weapon) end
 	else
 		local typeStr = type == types.Probe and "probes" or "lockpicks"
