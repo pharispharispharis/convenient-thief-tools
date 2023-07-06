@@ -12,16 +12,13 @@ local storage = require("openmw.storage")
 local types = require("openmw.types")
 local ui = require("openmw.ui")
 
--- Mod info
 local modInfo = require("Scripts.Pharis.ConvenientThiefTools.modinfo")
-local modName = modInfo.modName
-local modVersion = modInfo.modVersion
 
 -- Settings
-local generalSettings = storage.globalSection("SettingsPlayer" .. modName)
-local userInterfaceSettings = storage.playerSection("SettingsPlayer" .. modName .. "UI")
-local controlsSettings = storage.playerSection("SettingsPlayer" .. modName .. "Controls")
-local gameplaySettings = storage.globalSection("SettingsPlayer" .. modName .. "Gameplay")
+local generalSettings = storage.globalSection("SettingsPlayer" .. modInfo.name)
+local userInterfaceSettings = storage.playerSection("SettingsPlayer" .. modInfo.name .. "UI")
+local controlsSettings = storage.playerSection("SettingsPlayer" .. modInfo.name .. "Controls")
+local gameplaySettings = storage.globalSection("SettingsPlayer" .. modInfo.name .. "Gameplay")
 
 local playerData = {}
 

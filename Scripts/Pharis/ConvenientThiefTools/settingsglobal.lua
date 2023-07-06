@@ -7,10 +7,7 @@ Author: Pharis
 
 local I = require("openmw.interfaces")
 
--- Mod info
 local modInfo = require("Scripts.Pharis.ConvenientThiefTools.modinfo")
-local modName = modInfo.modName
-local modVersion = modInfo.modVersion
 
 -- General settings description(s)
 local modEnableDescription = "To mod or not to mod."
@@ -33,10 +30,10 @@ local function setting(key, renderer, argument, name, description, default)
 end
 
 I.Settings.registerGroup {
-	key = "SettingsPlayer" .. modName,
-	page = modName,
+	key = "SettingsPlayer" .. modInfo.name,
+	page = modInfo.name,
 	order = 0,
-	l10n = modName,
+	l10n = modInfo.name,
 	name = "General",
 	permanentStorage = false,
 	settings = {
@@ -45,16 +42,16 @@ I.Settings.registerGroup {
 }
 
 I.Settings.registerGroup {
-	key = "SettingsPlayer" .. modName .. "Gameplay",
-	page = modName,
+	key = "SettingsPlayer" .. modInfo.name .. "Gameplay",
+	page = modInfo.name,
 	order = 3,
-	l10n = modName,
+	l10n = modInfo.name,
 	name = "Gameplay",
 	permanentStorage = false,
 	settings = {
 		setting("autoEquipLockpick", "checkbox", {}, "Auto Equip Lockpick", autoEquipLockpickDescription, true),
 		setting("autoEquipProbe", "checkbox", {}, "Auto Equip Probe", autoEquipProbeDescription, true),
 		setting("autoWeaponStance", "checkbox", {}, "Auto Weapon Stance On Equip", autoWeaponStanceDescription, true),
-		setting("qualitySortDirection", "select", {l10n = modName, items = {"ascending", "descending"}}, "Quality Sort Direction", qualitySortDirectionDescription, "ascending"),
+		setting("qualitySortDirection", "select", {l10n = modInfo.name, items = {"ascending", "descending"}}, "Quality Sort Direction", qualitySortDirectionDescription, "ascending"),
 	}
 }

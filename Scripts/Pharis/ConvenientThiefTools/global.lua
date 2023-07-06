@@ -9,14 +9,11 @@ local I = require("openmw.interfaces")
 local storage = require("openmw.storage")
 local types = require("openmw.types")
 
--- Mod info
 local modInfo = require("Scripts.Pharis.ConvenientThiefTools.modinfo")
-local modName = modInfo.modName
-local modVersion = modInfo.modVersion
 
 -- Settings
-local generalSettings = storage.globalSection("SettingsPlayer" .. modName)
-local gameplaySettings = storage.globalSection("SettingsPlayer" .. modName .. "Gameplay")
+local generalSettings = storage.globalSection("SettingsPlayer" .. modInfo.name)
+local gameplaySettings = storage.globalSection("SettingsPlayer" .. modInfo.name .. "Gameplay")
 
 local function isLockpick(object)
 	return (object) and (types.Lockpick.objectIsInstance(object))

@@ -10,13 +10,10 @@ local I = require("openmw.interfaces")
 local input = require("openmw.input")
 local ui = require("openmw.ui")
 
--- Mod info
 local modInfo = require("Scripts.Pharis.ConvenientThiefTools.modinfo")
-local modName = modInfo.modName
-local modVersion = modInfo.modVersion
 
 -- Page description(s)
-local pageDescription = "By Pharis\nv" .. modVersion .. "\n\nThief tools but convenient. :)"
+local pageDescription = "By Pharis\nv" .. modInfo.version .. "\n\nThief tools but convenient. :)"
 
 -- UI settings description(s)
 local showMessagesDescription = "Show messages on screen when equipping fails."
@@ -66,17 +63,17 @@ I.Settings.registerRenderer("inputKeySelection", function(value, set)
 end)
 
 I.Settings.registerPage {
-	key = modName,
-	l10n = modName,
+	key = modInfo.name,
+	l10n = modInfo.name,
 	name = "Convenient Thief Tools",
 	description = pageDescription
 }
 
 I.Settings.registerGroup {
-	key = "SettingsPlayer" .. modName .. "UI",
-	page = modName,
+	key = "SettingsPlayer" .. modInfo.name .. "UI",
+	page = modInfo.name,
 	order = 1,
-	l10n = modName,
+	l10n = modInfo.name,
 	name = "UI",
 	permanentStorage = false,
 	settings = {
@@ -85,10 +82,10 @@ I.Settings.registerGroup {
 }
 
 I.Settings.registerGroup {
-	key = "SettingsPlayer" .. modName .. "Controls",
-	page = modName,
+	key = "SettingsPlayer" .. modInfo.name .. "Controls",
+	page = modInfo.name,
 	order = 2,
-	l10n = modName,
+	l10n = modInfo.name,
 	name = "Controls",
 	permanentStorage = false,
 	settings = {
@@ -97,4 +94,4 @@ I.Settings.registerGroup {
 	}
 }
 
-print("[" .. modName .. "] Initialized v" .. modVersion)
+print("[" .. modInfo.name .. "] Initialized v" .. modInfo.version)
