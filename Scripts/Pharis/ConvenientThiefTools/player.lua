@@ -118,11 +118,7 @@ end
 local function activationHandler(data)
 	if (not generalSettings:get("modEnable")) then return end
 
-	local type = types.Lockpick
-	if (data.probe) then
-		type = types.Probe
-	end
-
+	local type = data.probe and types.Probe or types.Lockpick
 	local tools = getTools(type)
 	if (#tools > 0) then
 		local carriedRight = types.Actor.equipment(self)[CarriedRight]
