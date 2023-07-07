@@ -45,7 +45,7 @@ end
 
 local function indexOf(obj, list)
     for i, o in ipairs(list) do
-        if obj == o then
+        if (obj == o) then
             return i
         end
     end
