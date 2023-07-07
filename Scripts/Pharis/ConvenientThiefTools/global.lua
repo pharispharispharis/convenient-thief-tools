@@ -15,6 +15,8 @@ local modInfo = require("Scripts.Pharis.ConvenientThiefTools.modinfo")
 local generalSettings = storage.globalSection("SettingsPlayer" .. modInfo.name)
 local gameplaySettings = storage.globalSection("SettingsPlayer" .. modInfo.name .. "Gameplay")
 
+local CarriedRight = types.Actor.EQUIPMENT_SLOT.CarriedRight
+
 local function isLockpick(object)
 	return (object) and (types.Lockpick.objectIsInstance(object))
 end
@@ -27,7 +29,7 @@ local function lockableActivationHandler(object, actor)
 	if (not generalSettings:get("modEnable"))
 		or (not types.Player.objectIsInstance(actor)) then return true end
 
-	local carriedRight = types.Actor.equipment(actor)[types.Actor.EQUIPMENT_SLOT.CarriedRight]
+	local carriedRight = types.Actor.equipment(actor)[CarriedRight]
 
 	if (gameplaySettings:get("autoEquipProbe")) and (not isProbe(carriedRight)) and (types.Lockable.getTrapSpell(object)) then
 		if (#types.Actor.inventory(actor):getAll(types.Probe) == 0) then return true end
